@@ -1,5 +1,6 @@
 import PuzzleInputReader.Companion.lines
 import java.lang.IllegalArgumentException
+import java.util.function.BiFunction
 
 
 fun Sequence<String>.mapToRucksack(): Sequence<Rucksack> {
@@ -16,8 +17,12 @@ class DayThree {
         println("Day 3 / 1: $dayThreeOne")
 
 
+        val dayThreeTwo = inputDayThree
+            .mapToRucksack()
+            .chunked(3)
+            .fold(0) {acc, rucksacks ->  acc.plus(findGroupBadge(rucksacks[0], rucksacks[1], rucksacks[2]).priority())}
 
-        //val dayThreeTwo = inputDayThree.chunked(3).onEach { findGroupBadge(it.get(0).,) }
+        println("Day 3 / 2: $dayThreeTwo")
     }
 }
 
@@ -30,7 +35,10 @@ fun Char.toItem(): Item = Item(this)
 fun findGroupBadge(rucksackOne: Rucksack, rucksackTwo:Rucksack, rucksackThree:Rucksack): Item {
     return (rucksackOne.allItems.distinct() + rucksackTwo.allItems.distinct() + rucksackThree.allItems.distinct())
         .groupingBy { it }
-        .eachCount().filter { it.value > 1 }.map { it.key }.first()
+        .eachCount()
+        .filter { it.value == 3 }
+        .map { it.key }
+        .first()
 }
 
 data class Rucksack private constructor(val compartmentOne: Sequence<Item>, val compartmentTwo: Sequence<Item>){

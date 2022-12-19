@@ -1,6 +1,7 @@
 fun main(args: Array<String>) {
-    DayOne().dayOne()
-    DayTwo().dayTwo()
-    DayThree().dayThree()
+    //DayOne().dayOne()
+    //DayTwo().dayTwo()
+    //DayThree().dayThree()
+    DayFour().dayFour()
 }
 
